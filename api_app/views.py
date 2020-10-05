@@ -48,6 +48,6 @@ def artilce_detail(request, pk):
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
-    elif request.method == 'DELETE':
+    elif request.method == 'DELETE' :
         article.delete()
         return HttpResponse(status=204)
