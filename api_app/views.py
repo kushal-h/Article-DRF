@@ -7,7 +7,24 @@ from .serializers import  Articleserializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
 # Create your views here.
+
+class ArticleARIViews(APIView):
+
+    def get(self, request):
+        articles = Article.objects.all()
+        serializer = Articleserializers(articles, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = Articleserializers(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'POST'])
 def article_list(request):
