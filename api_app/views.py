@@ -17,6 +17,7 @@ from django.shortcuts import render, get_object_or_404
 
 #view sets
 
+# Generic Viewsets
 class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin,
                      mixins.UpdateModelMixin, mixins.RetrieveModelMixin,  mixins.DestroyModelMixin):
     serializer_class = Articleserializers
