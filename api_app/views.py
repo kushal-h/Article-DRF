@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -12,7 +11,42 @@ from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from django.shortcuts import render, get_object_or_404
 # Create your views here.
+
+#view sets
+
+class ArticleViewSet(viewsets.ViewSet):
+    def list(self,request):
+        articles = Article.objects.all()
+        serializer = Articleserializers(articles, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = Articleserializers(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk= None):
+        queryset = Article.objects.all()
+        article = get_object_or_404(queryset, pk=pk )
+        serializer = Articleserializers(article)
+        return Response(serializer.data)
+
+    def update(self, request, pk= None):
+        article =Article.objects.get(pk=pk)
+        serializer = Articleserializers(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+
 
 #views by generics and mixins
 class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
