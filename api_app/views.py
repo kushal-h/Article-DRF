@@ -16,15 +16,16 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 
 #view sets
-
+'''
 # Generic Viewsets
 class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin,
                      mixins.UpdateModelMixin, mixins.RetrieveModelMixin,  mixins.DestroyModelMixin):
     serializer_class = Articleserializers
     queryset = Article.objects.all()
-
-
-
+'''
+class ArticleViewSet(viewsets.ModelViewSet):
+    serializer_class = Articleserializers
+    queryset = Article.objects.all()
 
 
 
