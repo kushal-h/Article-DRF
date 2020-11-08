@@ -13,6 +13,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django.shortcuts import render, get_object_or_404
+
+from pusher_push_notifications import PushNotifications
 # Create your views here.
 
 #view sets
@@ -155,3 +157,13 @@ def artilce_detail(request, pk):
     elif request.method == 'DELETE' :
         article.delete()
         return HttpResponse(status.HTTP_204_NO_CONTENT)
+
+'''
+#notification
+
+def push_notify(psst):
+    beams_client = PushNotifications(
+        instance_id='YOUR_INSTANCE_ID_HERE',
+        secret_key='YOUR_SECRET_KEY_HERE',
+    )
+'''

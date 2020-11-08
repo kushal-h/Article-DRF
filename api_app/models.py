@@ -9,6 +9,7 @@ class Article(models.Model):
     comment = models.CharField(max_length=500)
     email = models.EmailField(max_length=250)
     date =  models.DateTimeField(auto_now_add=True)
+    font_size= models.IntegerField()
 
-    def __self__(self):
-        return  self.title
+    def __str__(self):
+        return self.title
