@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django.shortcuts import render, get_object_or_404
 
-from pusher_push_notifications import PushNotifications
+#from pusher_push_notifications import PushNotifications
 # Create your views here.
 
 #view sets
